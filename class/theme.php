@@ -1,8 +1,8 @@
 <?php
 class Theme {
   var $_nom;
-  var $id;
-  var $questions;
+  var $_id;
+  var $_questions;
 
   function Theme($leNom){
     $_nom = $leNom;
@@ -21,9 +21,12 @@ class Theme {
          // Free result set
          $result->close();
     }
+  }
 
+  function addQuestion(){
 
   }
+
 }
 
 
