@@ -4,6 +4,7 @@ class Question {
   var $_id;
   var $_phrase;
   var $_solution;
+  var $_choix;
   var $_indice;
   var $_nb_choix;
 
@@ -21,6 +22,10 @@ class Question {
     {
       die('Erreur : '.$e->getMessage());
     }
+  }
+
+  function addChoix($unChoix){
+    
   }
 
 }

@@ -28,7 +28,7 @@ class Theme {
     }
   }
 
-  function addQuestion(){
+  function addQuestion($uneQuestion){
 
   }
 
