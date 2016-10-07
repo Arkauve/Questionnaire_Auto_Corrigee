@@ -4,20 +4,26 @@ class Theme {
   var $_id;
   var $_questions;
 
-  function Theme($leNom){
-    $_nom = $leNom;
-    global $bdd;
+  function __construct($leNom){
+    $this->_nom = $leNom;
+    $this->_id=null;
   }
 
+  // méthode de sauveagarde enrgistrant le thème courant dans la base de donnés
   function save(){
+    global $bdd;
     try {
-      $bdd->query("INSERT INTO theme(t_theme) VALUES ('$leNom')");
+      $bdd->query("INSERT INTO theme(t_theme) VALUES ('$this->_nom')");
     } catch (Exception $e) {
       die('Erreur : '.$e->getMessage());
     }
+    $this->_id = $bdd->insert_id;
   }
 
+  // Méthode renvoyant une liste de tous les thèmes
+  // Testé
   static function getAllThemes(){
+    global $bdd;
     if ($result = $bdd->query("SELECT * FROM `theme`")){
          // Cycle through results
         while ($row = $result->fetch_object()){
@@ -25,6 +31,7 @@ class Theme {
         }
          // Free result set
          $result->close();
+         return $group_arr;
     }
   }
 

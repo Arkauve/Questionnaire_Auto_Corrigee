@@ -1,13 +1,13 @@
 <?php
-include "../recup_exam/theme.php";
-
+include "../class/theme.php";
+include "../connexion_bdd.php";
 // version mysqli (style objet)
 // changez l'identifiant / mdp en fonction de votre config
 // param : server, login, mdp, nom de la bdd
-$bdd = new mysqli('localhost', 'root', '10223102m' , 'examen');
+//$bdd = new mysqli('localhost', 'root', '' , 'examen');
 
 /* Vérification de la connexion */
-if ($bdd->connect_errno) {
+/*if ($bdd->connect_errno) {
     printf("Échec de la connexion : %s\n", $bdd->connect_error);
     exit();
 }
@@ -32,8 +32,9 @@ if ($bdd->connect_errno) {
 if(isset($_POST['action'])){
 
   $nom =$_POST['nom'];
-  new Theme($nom);
-
+  $th = new Theme($nom);
+  $th->save();
+  print_r("id:".$th->_id);
   }
 
 
