@@ -7,9 +7,14 @@ class Theme {
   function Theme($leNom){
     $_nom = $leNom;
     global $bdd;
-    $bdd->query("INSERT INTO theme(nom) VALUES ('$leNom')");
-    print_r($bdd->error);
-    print_r($bdd->info);
+  }
+
+  function save(){
+    try {
+      $bdd->query("INSERT INTO theme(t_theme) VALUES ('$leNom')");
+    } catch (Exception $e) {
+      die('Erreur : '.$e->getMessage());
+    }
   }
 
   static function getAllThemes(){
