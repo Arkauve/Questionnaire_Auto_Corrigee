@@ -74,6 +74,6 @@ ALTER TABLE score ADD CONSTRAINT FK_score_id_question FOREIGN KEY (s_id_question
 ALTER TABLE score ADD CONSTRAINT FK_score_id_etudiant FOREIGN KEY (s_id_etudiant) REFERENCES etudiant(id_etudiant);
 
 
-INSERT INTO 'etudiant' ('e_nom','e_prenom') VALUES ('GARNIER','Romain');
-INSERT INTO 'etudiant' ('e_nom','e_prenom') VALUES ('ROGE','Damien');
-INSERT INTO 'etudiant' ('e_nom','e_prenom') VALUES ('TRIPPONI','Lucas');
+INSERT INTO etudiant (e_nom,e_prenom) VALUES ('GARNIER','Romain');
+INSERT INTO etudiant (e_nom,e_prenom) VALUES ('ROGE','Damien');
+INSERT INTO etudiant (e_nom,e_prenom) VALUES ('TRIPPONI','Lucas');
