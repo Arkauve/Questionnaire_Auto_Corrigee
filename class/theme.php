@@ -10,14 +10,45 @@ class Theme {
   }
 
   // méthode de sauveagarde enrgistrant le thème courant dans la base de donnés
+  // Testé
   function save(){
     global $bdd;
     try {
-      $bdd->query("INSERT INTO theme(t_theme) VALUES ('$this->_nom')");
+      $bdd->query("INSERT INTO theme(t_nom) VALUES ('$this->_nom')");
     } catch (Exception $e) {
       die('Erreur : '.$e->getMessage());
     }
-    $this->_id = $bdd->insert_id;
+    $this->_id = $bdd->lastInsertId();
+  }
+
+  function delete(){
+    global $bdd;
+    try {
+      $bdd->exec("DELETE FROM theme WHERE t_id = '$this->_id'");
+    } catch (Exception $e) {
+      die('Erreur : '.$e->getMessage());
+    }
+  }
+
+  function setId($id){
+    $this->_id=$id;
+  }
+
+  function getNom(){
+    return $this->_nom;
+  }
+
+
+  function addQuestion($uneQuestion){
+    $this->_questions[]=$uneQuestion;
+  }
+
+  // Converti un objet SQL en Theme
+  // Testé
+  static function getSQLObject($SQLObject){
+    $theme = new Theme($SQLObject["t_nom"]);
+    $theme->setId($SQLObject["t_id"]);
+    return $theme;
   }
 
   // Méthode renvoyant une liste de tous les thèmes
@@ -26,18 +57,36 @@ class Theme {
     global $bdd;
     if ($result = $bdd->query("SELECT * FROM `theme`")){
          // Cycle through results
-        while ($row = $result->fetch_object()){
-            $group_arr[] = $row;
+         $group_arr=null;
+        while ($row = $result->fetch()){
+            $group_arr[] = Theme::getSQLObject($row);
         }
          // Free result set
-         $result->close();
+         $result->closeCursor();
          return $group_arr;
     }
   }
 
-  function addQuestion($uneQuestion){
-
+  static function getTheme($id){
+    global $bdd;
+    if ($resultSQL = $bdd->query("SELECT * FROM `theme` WHERE t_id=$id")){
+      $result = $resultSQL->fetch();
+      $resultSQL->closeCursor();
+      return $result;
+    }
   }
+
+  // Méthode supprimant le thème d'id passé en parametre
+  // Testé
+  static function deleteTheme($id){
+    global $bdd;
+    try {
+      $bdd->exec("DELETE FROM theme WHERE t_id = '$id'");
+    } catch (Exception $e) {
+      die('Erreur : '.$e->getMessage());
+    }
+  }
+
 
 }
 
