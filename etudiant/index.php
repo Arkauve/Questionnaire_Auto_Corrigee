@@ -10,7 +10,10 @@
 </head>
 
 <body>
-Courage <?php session_start(); ?>
+Courage
+<?php
+  session_start();
+  echo $_SESSION['login']; ?>
 <br>
 EXAM
 </body>

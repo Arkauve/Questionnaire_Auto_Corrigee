@@ -35,7 +35,5 @@ if(isset($_SESSION['nom']))
 </form>
 
 
-
-<div id="res">
-</div>
+<a style="margin: 2em,2em;" href="prof/"> Tkt bro je suis prof </a>
 </body>
