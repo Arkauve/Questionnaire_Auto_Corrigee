@@ -31,18 +31,18 @@ if(isset($_POST['action'])){
 <?php
 
 if ($result = $bdd->query("SELECT * FROM `theme`")) {
-    printf("Select a retourné %d lignes.\n", $result->num_rows);}
+    printf("Select a retourné %d lignes.\n", $result->rowCount());}
 
     /* Libération du jeu de résultats */
 
     if($result){
          // Cycle through results
-        while ($row = $result->fetch_object()){
+        while ($row = $result->fetch()){
             $group_arr[] = $row;
             print_r("Thème ".$row->t_nom."\n");
         }
          // Free result set
-         $result->close();
+         $result->closeCursor();
     }
      ?>
 </pre>
