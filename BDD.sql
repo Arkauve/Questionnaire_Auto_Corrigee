@@ -10,7 +10,7 @@
 CREATE TABLE theme(
         t_id    int (11) Auto_increment  NOT NULL ,
         t_nom       Varchar (50) ,
-        PRIMARY KEY (Id_theme )
+        PRIMARY KEY (t_id )
 )ENGINE=InnoDB;
 
 
@@ -25,7 +25,7 @@ CREATE TABLE question(
         q_indice      Varchar (250) ,
         q_nb_choix    Int ,
         q_t_id Int ,
-        PRIMARY KEY (id_question )
+        PRIMARY KEY (q_id )
 )ENGINE=InnoDB;
 
 
@@ -38,7 +38,7 @@ CREATE TABLE choix(
         c_valeur   Varchar (250) NOT NULL,
         c_phrase   Varchar (250) NOT NULL,
         c_q_id Int,
-        PRIMARY KEY (id_choix )
+        PRIMARY KEY (c_id )
 )ENGINE=InnoDB;
 
 
@@ -50,7 +50,7 @@ CREATE TABLE etudiant(
         e_id int (11) Auto_increment  NOT NULL ,
         e_nom         Varchar (250) ,
         e_prenom      Varchar (250) ,
-        PRIMARY KEY (id_etudiant )
+        PRIMARY KEY (e_id )
 )ENGINE=InnoDB;
 
 
@@ -65,7 +65,7 @@ CREATE TABLE score(
         s_valeur      Int ,
         s_q_id Int ,
         s_e_id Int,
-        PRIMARY KEY (id_score )
+        PRIMARY KEY (s_id )
 )ENGINE=InnoDB;
 
 ALTER TABLE question ADD CONSTRAINT FK_question_t_id FOREIGN KEY (q_t_id) REFERENCES theme(t_id);
