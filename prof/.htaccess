@@ -1,0 +1,4 @@
+AuthName "Espace professeur"
+AuthType Basic
+AuthUserFile "C:/wamp/www/Questionnaire_Auto_Corrigee/prof/.htpasswd"
+Require valid-user
