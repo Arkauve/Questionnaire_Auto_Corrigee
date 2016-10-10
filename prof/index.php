@@ -1,40 +1,12 @@
 <?php
 include "../class/theme.php";
 include "../connexion_bdd.php";
-// version mysqli (style objet)
-// changez l'identifiant / mdp en fonction de votre config
-// param : server, login, mdp, nom de la bdd
-//$bdd = new mysqli('localhost', 'root', '' , 'examen');
-
-/* Vérification de la connexion */
-/*if ($bdd->connect_errno) {
-    printf("Échec de la connexion : %s\n", $bdd->connect_error);
-    exit();
-}
-
-/* Requête "Select" retourne un jeu de résultats */
-/*if ($result = $bdd->query("SELECT * FROM `theme`")) {
-    printf("Select a retourné %d lignes.\n", $result->num_rows);}
-*/
-    /* Libération du jeu de résultats */
-/*
-    if($result){
-         // Cycle through results
-        while ($row = $result->fetch_object()){
-            $group_arr[] = $row;
-        }
-         // Free result set
-         $result->close();
-         print_r($group_arr);
-    }
-*/
 
 if(isset($_POST['action'])){
 
   $nom =$_POST['nom'];
   $th = new Theme($nom);
   $th->save();
-  print_r("id:".$th->_id);
   }
 
 
@@ -67,7 +39,7 @@ if ($result = $bdd->query("SELECT * FROM `theme`")) {
          // Cycle through results
         while ($row = $result->fetch_object()){
             $group_arr[] = $row;
-            print_r("Thème ".$row->nom."\n");
+            print_r("Thème ".$row->t_nom."\n");
         }
          // Free result set
          $result->close();
