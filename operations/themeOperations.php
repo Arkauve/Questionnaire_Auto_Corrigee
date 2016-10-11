@@ -35,7 +35,7 @@ function createTheme($nom){
 function getListThemes(){
   if(($listTheme = Theme::getAllThemes())!=null){
     foreach ($listTheme as $key => $value) {
-      echo "<label class=theme id=".$value->_id." onload=afficheListeQuestions(".$value->_id.")>".$value->_nom."</label><button onclick=deleteTheme(".$value->_id.")>suprimer</button><br>";
+      echo "<label class=theme id=".$value->_id.">".$value->_nom."</label><br>";
     }
   }else echo "Il n'existe aucun thème";
 }
@@ -44,7 +44,7 @@ function getListQuestions(){
   $theme = Theme::getTheme($_GET["id"]);
   if($question=$theme->getQuestions()){
     foreach ($question as $key => $value) {
-      echo "<div class=question id=".$theme->_id."_".$value->_id." onload=afficheListeChoix(".$theme->_id.",".$value->_id.")>$value->_phrase</div><br>";
+      echo "<div class=question id=".$value->_id."_".$value->_id.">$value->_phrase</div><br>";
     }
   }else echo "il n'existe aucune question pour ce thème";
 }
