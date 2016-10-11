@@ -45,16 +45,15 @@ if(!empty($_POST)){
     }
 
     function createTheme(){
-      var id=$("input[name=phrase]")[0].value;
+      var nom=$("input[name=nom]")[0].value;
       $.ajax({
           type: "GET",
           url: "../operations/themeOperations.php",
-          data: "function=createTheme&id="+id,
+          data: "function=createTheme&nom="+nom,
           success: function(data){
-              console.log("data");
+            afficheListeTheme();
          }
       });
-      afficheListeTheme();
     }
 
     function deleteTheme(id){
@@ -75,7 +74,7 @@ if(!empty($_POST)){
 
     </script>
 
-      <label >Nom du theme</label>  <input type="text" name="phrase" value="">
+      <label >Nom du theme</label>  <input type="text" name="nom" value="">
       <button name="name" onclick="createTheme()">Valider</button>
       <label>Liste de thèmes</label>
       <div id="listThemes"></div>

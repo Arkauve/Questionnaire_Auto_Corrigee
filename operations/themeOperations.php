@@ -12,7 +12,7 @@ if(!empty($_GET)){
 function choixFonction(){
   switch ($_GET["function"]){
     case "createTheme" :
-      createTheme();
+      createTheme($_GET["nom"]);
       break;
     case "deleteTheme" :
       Theme::deleteTheme($_GET["id"]);
@@ -26,8 +26,8 @@ function choixFonction(){
   }
 }
 
-function createTheme($id){
-    $theme = new Theme($_POST["phrase"]);
+function createTheme($nom){
+    $theme = new Theme($nom);
     $theme->save();
 }
 
