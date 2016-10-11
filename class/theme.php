@@ -60,6 +60,7 @@ class Theme {
       $resultSQL->closeCursor();
       return $this->_questions;
     }
+    return null;
   }
 
   // Converti un objet SQL en Theme
