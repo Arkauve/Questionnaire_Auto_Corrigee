@@ -1,50 +1,41 @@
-<?php
-include "../class/theme.php";
-include "../connexion_bdd.php";
-
-if(isset($_POST['action'])){
-
-  $nom =$_POST['nom'];
-  $th = new Theme($nom);
-  $th->save();
-  }
-
-
-?>
-
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
 <body>
-<pre>
-<h1> Gestion des themes </h1>
+    <header>
+        <h1 id="foo">Votre examen</h1>
+        <h2>Thèmes</h2>
+    </header>
+    <div class="theme-form-container">
+        <form id="input-form">
+          <input type="text" id="nom_theme" placeholder="Entrez votre thème ici..."/>
+          <input type="submit" value="Ajouter" />
+        </form>
+    </div>
 
-<h3> Ajout d'un thème </h3>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-<input type="hidden" name="action" value="inserer" />
-<p>Nom du theme : <input type="text" name="nom" /></p>
-<p><input type="submit" name="Submit" value="Ajouter" /></p>
-</form>
+    <ul class="themes-container">
 
-<h3> Liste des thèmes enregistrés </h3>
-<?php
+        <div class="question-form-container">
+        </div>
+        <ul class="question-container">
 
-if ($result = $bdd->query("SELECT * FROM `theme`")) {
-    printf("Select a retourné %d lignes.\n", $result->rowCount());}
+            <div class="choix-form-container">
+            </div>
 
-    /* Libération du jeu de résultats */
+            <ul class="choix-container">
+            </ul>
 
-    if($result){
-         // Cycle through results
-        while ($row = $result->fetch()){
-            $group_arr[] = $row;
-            print_r("Thème ".$row->t_nom."\n");
-        }
-         // Free result set
-         $result->closeCursor();
-    }
-     ?>
-</pre>
+        </ul>
+    </ul>
 </body>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="js/script.js"></script>
+
+
 </html>
