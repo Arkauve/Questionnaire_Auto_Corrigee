@@ -18,7 +18,7 @@ function choixFonction(){
       Theme::deleteTheme($_GET["id"]);
       break;
     case "getQuestions" :
-      getQuestions();
+      getListQuestions();
       break;
     case "getListThemes" :
       getListThemes();
@@ -42,10 +42,11 @@ function getListThemes(){
 
 function getListQuestions(){
   $theme = Theme::getTheme($_GET["id"]);
-  $question=$theme->getQuestions();
-  foreach ($question as $key => $value) {
-    echo "<div class=question id=".$theme->_id."_".$value->_id." onload=afficheListeChoix(".$theme->_id.",".$value->_id.")>$value->_phrase</div><br>";
-  }
+  if($question=$theme->getQuestions()){
+    foreach ($question as $key => $value) {
+      echo "<div class=question id=".$theme->_id."_".$value->_id." onload=afficheListeChoix(".$theme->_id.",".$value->_id.")>$value->_phrase</div><br>";
+    }
+  }else echo "il n'existe aucune question pour ce thème";
 }
 
 
