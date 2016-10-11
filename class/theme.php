@@ -1,4 +1,6 @@
 <?php
+//include "../class/question.php";
+
 class Theme {
   var $_nom;
   var $_id;
@@ -7,6 +9,7 @@ class Theme {
   function __construct($leNom){
     $this->_nom = $leNom;
     $this->_id=null;
+    $this->_questions=null;
   }
 
   // méthode de sauveagarde enrgistrant le thème courant dans la base de donnés
@@ -34,6 +37,10 @@ class Theme {
     $this->_id=$id;
   }
 
+  function getId(){
+    return $this->_id;
+  }
+
   function getNom(){
     return $this->_nom;
   }
@@ -41,6 +48,18 @@ class Theme {
 
   function addQuestion($uneQuestion){
     $this->_questions[]=$uneQuestion;
+  }
+
+  function getQuestions(){
+    global $bdd;
+    if($this->_questions!=null)return $this->_questions;
+    if($resultSQL = $bdd->query("SELECT * FROM `question` WHERE q_t_id = '$this->_id'")){
+      while($result = $resultSQL->fetch()){
+        $this->_questions[]=Question::getSQLObject($result);
+      }
+      $resultSQL->closeCursor();
+      return $this->_questions;
+    }
   }
 
   // Converti un objet SQL en Theme
@@ -70,7 +89,7 @@ class Theme {
   static function getTheme($id){
     global $bdd;
     if ($resultSQL = $bdd->query("SELECT * FROM `theme` WHERE t_id=$id")){
-      $result = $resultSQL->fetch();
+      $result = Theme::getSQLObject($resultSQL->fetch());
       $resultSQL->closeCursor();
       return $result;
     }
