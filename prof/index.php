@@ -8,18 +8,60 @@
 <body>
     <header>
         <h1>Votre examen</h1>
-        <h2>Thèmes</h2>
+
     </header>
-    <div class="theme-form-container">
-        <form id="input-form">
-          <input type="text" id="nom_theme" autocomplete="off" placeholder="Entrez votre thème ici..."/>
-          <input type="submit" value="Ajouter" />
+
+<div id="partie_themes">
+<h2>Thèmes</h2>
+    <div  style="display:inline;">
+        <form id="form-theme">
+            Intitulé : <input id="intitule_theme" type="text"/>
+            Nombre de questions à poser : <input id="nb_questions" type="number"/>
+            <input type="submit" value="Ajouter"/>
         </form>
     </div>
 
-    <ul class="themes-container">
+<ul id="liste_themes">
 
-    </ul>
+</ul>
+
+
+</div>
+
+<!-- QUESTIONS -->
+<div id="partie_questions">
+    <h2>Questions</h2>
+    <form id="form-question">
+        Intitulé : <input id="intitule_question" type="text" name="intitule"/>
+        Theme : <SELECT  id="select_theme" name="theme"></SELECT>
+        Indice : <input id="indice" type="text" name="indice"/>
+        Nombre choix dispo : <input id="nb_choix" type="number"/>
+        <input type="submit" value="Ajouter"/>
+    </form>
+
+<ul id="liste_questions">
+
+</ul>
+
+</div>
+
+<!-- CHOIX -->
+<div id="partie_choix">
+    <h2>Choix</h2>
+    <form id="form-choix">
+        Intitulé : <input id="intitule_choix" type="text" name="intitule"/>
+        Question : <SELECT id="select_question" name="question"></SELECT>
+        Correct: <input id="correct" name="correct" type="checkbox"/>
+        <input type="submit" value="Ajouter"/>
+    </form>
+
+<ul id="liste_choix">
+
+</ul>
+
+</div>
+
+
 </body>
 
 

@@ -24,6 +24,7 @@ class Theme {
       die('Erreur : '.$e->getMessage());
     }
     $this->_id = $bdd->lastInsertId();
+    return $this->_id;
   }
 
   function delete(){
