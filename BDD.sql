@@ -22,10 +22,10 @@ CREATE TABLE theme(
 CREATE TABLE question(
         q_id int (11) Auto_increment  NOT NULL ,
         q_phrase      Varchar (250) NOT NULL,
-        q_solution    Varchar (25) NOT NULL,
         q_indice      Varchar (250) ,
         q_nb_choix    Int ,
         q_t_id Int ,
+        q_c_id Int ,
         PRIMARY KEY (q_id )
 )ENGINE=InnoDB;
 
@@ -36,7 +36,6 @@ CREATE TABLE question(
 
 CREATE TABLE choix(
         c_id int (11) Auto_increment  NOT NULL ,
-        c_valeur   Varchar (250) NOT NULL,
         c_phrase   Varchar (250) NOT NULL,
         c_q_id Int,
         PRIMARY KEY (c_id )
@@ -61,7 +60,7 @@ CREATE TABLE etudiant(
 
 CREATE TABLE score(
         s_id    int (11) Auto_increment  NOT NULL ,
-        s_reponse     Varchar (250) ,
+        s_reponse     Int ,
         s_consult     Varchar (250),
         s_valeur      Int ,
         s_q_id Int ,
@@ -70,6 +69,7 @@ CREATE TABLE score(
 )ENGINE=InnoDB;
 
 ALTER TABLE question ADD CONSTRAINT FK_question_t_id FOREIGN KEY (q_t_id) REFERENCES theme(t_id);
+ALTER TABLE question ADD CONSTRAINT FK_question_c_id FOREIGN KEY (q_c_id) REFERENCES theme(c_id);
 ALTER TABLE choix ADD CONSTRAINT FK_choix_q_id FOREIGN KEY (c_q_id) REFERENCES question(q_id);
 ALTER TABLE score ADD CONSTRAINT FK_score_q_id FOREIGN KEY (s_q_id) REFERENCES question(q_id);
 ALTER TABLE score ADD CONSTRAINT FK_score_e_id FOREIGN KEY (s_e_id) REFERENCES etudiant(e_id);

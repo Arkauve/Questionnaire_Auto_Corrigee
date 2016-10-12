@@ -11,7 +11,7 @@ class Choix{
   function save($q_id){
     global $bdd;
     try{
-      $bdd->query("INSERT INTO choix(c_valeur,c_q_id) VALUES ('$this->_valeur','$q_id')");
+      $bdd->query("INSERT INTO choix(c_phrase,c_q_id) VALUES ('$this->_phrase','$q_id')");
     }catch(Exception $e)
     {
       die('Erreur : '.$e->getMessage());

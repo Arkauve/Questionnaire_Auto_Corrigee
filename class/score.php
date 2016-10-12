@@ -71,12 +71,10 @@ class Score{
   static function getAllScore(){
     global $bdd;
     if ($result = $bdd->query("SELECT * FROM `score`")){
-         // Cycle through results
          $group_arr=null;
         while ($row = $result->fetch()){
             $group_arr[] = score::getSQLObject($row);
         }
-         // Free result set
          $result->closeCursor();
          return $group_arr;
     }
@@ -97,6 +95,18 @@ class Score{
       $result = score::getSQLObject($resultSQL->fetch());
       $resultSQL->closeCursor();
       return $result;
+    }
+  }
+
+  static function getScoreByEtudiant($e_id){
+    global $bdd;
+    if ($result = $bdd->query("SELECT * FROM `score` WHERE s_e_id='$e_id'")){
+      $group_arr=null;
+      while ($row = $result->fetch()){
+          $group_arr[] = score::getSQLObject($row);
+      }
+       $result->closeCursor();
+       return $group_arr;
     }
   }
 

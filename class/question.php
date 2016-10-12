@@ -83,6 +83,7 @@ class Question {
   static function getSQLObject($SQLObject){
     $question = new Question($SQLObject["q_phrase"],$SQLObject["q_indice"],$SQLObject["q_nb_choix"],$SQLObject["q_t_id"]);
     $question->setId($SQLObject["q_id"]);
+    $question->setSolution($SQLObject["q_c_id"]);
     return $question;
   }
 
