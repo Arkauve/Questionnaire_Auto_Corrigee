@@ -4,10 +4,12 @@
 class Theme {
   var $_nom;
   var $_id;
+  var $_nb_questions;
   var $_questions;
 
-  function __construct($leNom){
+  function __construct($leNom, $unNbQuestion){
     $this->_nom = $leNom;
+    $this->_nb_questions=$unNbQuestion;
     $this->_id=null;
     $this->_questions=null;
   }
@@ -17,7 +19,7 @@ class Theme {
   function save(){
     global $bdd;
     try {
-      $bdd->query("INSERT INTO theme(t_nom) VALUES ('$this->_nom')");
+      $bdd->query("INSERT INTO theme(t_nom,t_nb_question) VALUES ('$this->_nom','$this->_nb_questions')");
     } catch (Exception $e) {
       die('Erreur : '.$e->getMessage());
     }
@@ -66,7 +68,7 @@ class Theme {
   // Converti un objet SQL en Theme
   // Testé
   static function getSQLObject($SQLObject){
-    $theme = new Theme($SQLObject["t_nom"]);
+    $theme = new Theme($SQLObject["t_nom"],$SQLObject["t_nb_question"]);
     $theme->setId($SQLObject["t_id"]);
     return $theme;
   }
