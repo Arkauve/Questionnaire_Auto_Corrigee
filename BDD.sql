@@ -10,6 +10,7 @@
 CREATE TABLE theme(
         t_id    int (11) Auto_increment  NOT NULL ,
         t_nom       Varchar (50) ,
+        t_nb_question Int ,
         PRIMARY KEY (t_id )
 )ENGINE=InnoDB;
 
@@ -61,7 +62,7 @@ CREATE TABLE etudiant(
 CREATE TABLE score(
         s_id    int (11) Auto_increment  NOT NULL ,
         s_reponse     Varchar (250) ,
-        s_consult     Boolean,
+        s_consult     Varchar (250),
         s_valeur      Int ,
         s_q_id Int ,
         s_e_id Int,
