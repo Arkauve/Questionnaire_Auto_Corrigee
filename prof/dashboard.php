@@ -21,9 +21,6 @@ if(!empty($_GET)){
 
 <script type="text/javascript">
 $(document).ready(function (){
-
-});
-
   $("#selectEtudiant").change(function (){
     refrechPage();
   });
@@ -31,16 +28,21 @@ $(document).ready(function (){
   setInterval(refrechPage, 60000);
 
   function getIdSelected(){
-    var list = $("optiont");
+    var list = $("option");
     for(var i=0;i<list.size();i++){
       if(list[i].selected)return list[i].value;
     }return null;
   }
 
   function refrechPage(){
-    var url = window.location.href+"?id=getIdSelected";
-    window.Location.href=url;
+    var url = window.location.href+"?id="+getIdSelected();
+    location.href=url;
   }
+});
+
+
+
+
 </script>
 
   <body>
