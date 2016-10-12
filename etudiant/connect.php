@@ -5,13 +5,15 @@
     <title>Connexion</title>
 
     <?php
+    include "../include.php";
     if(!empty($_POST))
     {
       if(!empty($_POST['nom']) && !empty($_POST['prenom'])){
         session_start();
-        if(Etudiant::etudiantExiste($_POST['nom'],$_POST['prenom'])){
-          $_SESSION['nom']=$_POST['nom'];
-          $_SESSION['prenom']=$_POST['prenom'];
+        if(($etudiant = Etudiant::getEtudiantByName($_POST['nom'],$_POST['prenom']))!=null){
+          $_SESSION['e_nom']=$_POST['nom'];
+          $_SESSION['e_prenom']=$_POST['prenom'];
+          $_SESSION['e_id']=$etudiant->getId();
           header("Location: ../etudiant/index.php");
           exit();
         }

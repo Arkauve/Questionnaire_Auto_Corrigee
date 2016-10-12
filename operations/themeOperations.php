@@ -1,10 +1,6 @@
 <?php
 // Ce fichier contient des fonctions php permettant d'executer les fonctions de la classe Theme
 
-include "../connexion_bdd.php";
-include "../class/theme.php";
-include "../class/question.php";
-
 if(!empty($_GET)){
   choixFonction();
 }
