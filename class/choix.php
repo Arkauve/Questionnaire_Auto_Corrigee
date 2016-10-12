@@ -2,18 +2,16 @@
 
 class Choix{
   var $_id;
-  var $_valeur;
   var $_phrase;
 
-  function __construct($uneValeur,$unePhrase){
-    $this->_valeur = $uneValeur;
+  function __construct($unePhrase){
     $this->_phrase = $unePhrase;
   }
 
   function save($q_id){
     global $bdd;
     try{
-      $bdd->query("INSERT INTO choix(c_valeur,c_phrase,c_q_id) VALUES ('$this->_valeur','$this->_phrase','$q_id')");
+      $bdd->query("INSERT INTO choix(c_valeur,c_q_id) VALUES ('$this->_valeur','$q_id')");
     }catch(Exception $e)
     {
       die('Erreur : '.$e->getMessage());
@@ -29,10 +27,6 @@ class Choix{
      return $this->_id;
   }
 
-  function getValeur(){
-    return $this->_valeur;
-  }
-
   function getPhrase(){
     return $this->_phrase;
   }
@@ -45,7 +39,7 @@ class Choix{
   // Converti un objet SQL en Choix
   // Testé
   static function getSQLObject($SQLObject){
-    $choix = new Choix($SQLObject["c_valeur"],$SQLObject["c_phrase"]);
+    $choix = new Choix($SQLObject["c_phrase"]);
     $choix->setId($SQLObject["c_id"]);
     return $choix;
   }
@@ -68,7 +62,7 @@ class Choix{
 
   static function getChoix($id){
     global $bdd;
-    if ($resultSQL = $bdd->query("SELECT * FROM `Choix` WHERE t_id=$id")){
+    if ($resultSQL = $bdd->query("SELECT * FROM `Choix` WHERE e_id=$id")){
       $result = Choix::getSQLObject($resultSQL->fetch());
       $resultSQL->closeCursor();
       return $result;

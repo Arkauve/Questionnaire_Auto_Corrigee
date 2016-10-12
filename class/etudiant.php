@@ -4,6 +4,7 @@ class Etudiant{
   var $_id;
   var $_nom;
   var $_prenom;
+  var $_scores;
 
   function __construct($unNom,$unPrenom){
     $this->_nom = $unNom;
@@ -63,11 +64,28 @@ class Etudiant{
 
   static function getEtudiant($id){
     global $bdd;
-    if ($resultSQL = $bdd->query("SELECT * FROM `Etudiant` WHERE t_id=$id")){
+    if ($resultSQL = $bdd->query("SELECT * FROM `etudiant` WHERE e_id='$id'")){
       $result = Etudiant::getSQLObject($resultSQL->fetch());
       $resultSQL->closeCursor();
       return $result;
     }
+  }
+
+  static function getEtudiantByName($nom, $prenom){
+    global $bdd;
+    if ($resultSQL = $bdd->query("SELECT * FROM `etudiant` WHERE e_nom='$nom' AND e_prenom='$prenom'")){
+      if(($reponse = $resultSQL->fetch())!=null){
+        $result = Etudiant::getSQLObject($reponse);
+        $resultSQL->closeCursor();
+        return $result;
+      }
+    }
+  }
+
+  static function etudiantExiste($nom, $prenom){
+    global $bdd;
+    $result = $bdd->query("SELECT * FROM `etudiant` WHERE e_nom='$nom' AND e_prenom='$prenom'");
+    return $result->fetch() != null;
   }
 
 

@@ -3,15 +3,14 @@
 class Question {
   var $_id;
   var $_phrase;
-  var $_solution;
+  var $_id_choix;
   var $_choix;
   var $_indice;
   var $_nb_choix;
 
 
-  function __construct($unePhrase, $uneSolution, $unIndice, $unNbChoix){
+  function __construct($unePhrase, $unIndice, $unNbChoix){
     $this->_phrase = $unePhrase;
-    $this->_solution = $uneSolution;
     $this->_indice = $unIndice;
     $this->_nb_choix = $unNbChoix;
   }
@@ -19,12 +18,25 @@ class Question {
   function save($id_theme){
     global $bdd;
     try{
-      $bdd->query("INSERT INTO question(q_phrase,q_solution,q_indice,q_nb_choix,q_t_id) VALUES ('$this->_phrase','$this->_solution','$this->_indice','$this->_nb_choix','$id_theme')");
+      $bdd->query("INSERT INTO question(q_phrase,q_indice,q_nb_choix,q_t_id) VALUES ('$this->_phrase','$this->_indice','$this->_nb_choix','$id_theme')");
     }catch(Exception $e)
     {
       die('Erreur : '.$e->getMessage());
     }
     $this->_id = $bdd->lastInsertId();
+  }
+
+  function update(){
+    try{
+      $bdd->query("UPDATE question q_phrase='$this->_phrase',q_indice='$this->_indice',q_nb_choix='$this->_nb_choix',q_t_id='$id_theme',q_c_id='$this->_id_choix' WHERE q_id='$this->_id';");
+    }catch(Exception $e)
+    {
+      die('Erreur : '.$e->getMessage());
+    }
+  }
+
+  function setSolution($unIdChoix){
+    $this->_id_choix=$unIdChoix;
   }
 
   function getId(){
@@ -47,19 +59,29 @@ class Question {
     return $this->_nb_choix;
   }
 
-  function getChoix(){
-    return $this->_choix;
-  }
-
   function setId($id){
     $this->_id=$id;
   }
 
 
+
+  function getChoix(){
+    global $bdd;
+    if($this->_choix!=null)return $this->_choix;
+    if($resultSQL = $bdd->query("SELECT * FROM `choix` WHERE c_q_id = '$this->_id'")){
+      while($result = $resultSQL->fetch()){
+        $this->_choix[]=Choix::getSQLObject($result);
+      }
+      $resultSQL->closeCursor();
+      return $this->_choix;
+    }
+    return null;
+  }
+
   // Converti un objet SQL en Question
   // Testé
   static function getSQLObject($SQLObject){
-    $question = new Question($SQLObject["q_phrase"],$SQLObject["q_solution"],$SQLObject["q_indice"],$SQLObject["q_nb_choix"],$SQLObject["q_t_id"]);
+    $question = new Question($SQLObject["q_phrase"],$SQLObject["q_indice"],$SQLObject["q_nb_choix"],$SQLObject["q_t_id"]);
     $question->setId($SQLObject["q_id"]);
     return $question;
   }
@@ -85,7 +107,7 @@ class Question {
     if ($resultSQL = $bdd->query("SELECT * FROM `question` WHERE q_id=$id")){
       $result = $resultSQL->fetch();
       $resultSQL->closeCursor();
-      return $result;
+      return Question::getSQLObject($result);
     }
   }
 
