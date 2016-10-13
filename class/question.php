@@ -27,8 +27,9 @@ class Question {
   }
 
   function update(){
+    global $bdd;
     try{
-      $bdd->query("UPDATE question q_phrase='$this->_phrase',q_indice='$this->_indice',q_nb_choix='$this->_nb_choix',q_t_id='$id_theme',q_c_id='$this->_id_choix' WHERE q_id='$this->_id';");
+      $bdd->query("UPDATE question SET q_phrase='$this->_phrase',q_indice='$this->_indice',q_nb_choix='$this->_nb_choix',q_c_id='$this->_id_choix' WHERE q_id='$this->_id';");
     }catch(Exception $e)
     {
       die('Erreur : '.$e->getMessage());
@@ -69,6 +70,19 @@ class Question {
     global $bdd;
     if($this->_choix!=null)return $this->_choix;
     if($resultSQL = $bdd->query("SELECT * FROM `choix` WHERE c_q_id = '$this->_id'")){
+      while($result = $resultSQL->fetch()){
+        $this->_choix[]=Choix::getSQLObject($result);
+      }
+      $resultSQL->closeCursor();
+      return $this->_choix;
+    }
+    return null;
+  }
+
+  function getChoixRandom(){
+    global $bdd;
+    if($this->_choix!=null)return $this->_choix;
+    if($resultSQL = $bdd->query("SELECT * FROM `choix` WHERE c_q_id = '$this->_id' ORDER BY RAND() LIMIT $this->_nb_choix;")){
       while($result = $resultSQL->fetch()){
         $this->_choix[]=Choix::getSQLObject($result);
       }

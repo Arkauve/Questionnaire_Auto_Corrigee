@@ -24,7 +24,6 @@ class Theme {
       die('Erreur : '.$e->getMessage());
     }
     $this->_id = $bdd->lastInsertId();
-    return $this->_id;
   }
 
   function delete(){
@@ -57,6 +56,19 @@ class Theme {
     global $bdd;
     if($this->_questions!=null)return $this->_questions;
     if($resultSQL = $bdd->query("SELECT * FROM `question` WHERE q_t_id = '$this->_id'")){
+      while($result = $resultSQL->fetch()){
+        $this->_questions[]=Question::getSQLObject($result);
+      }
+      $resultSQL->closeCursor();
+      return $this->_questions;
+    }
+    return null;
+  }
+
+  function getQuestionsRandom(){
+    global $bdd;
+    if($this->_questions!=null)return $this->_questions;
+    if($resultSQL = $bdd->query("SELECT * FROM `question` WHERE q_t_id = '$this->_id' ORDER BY RAND() LIMIT $this->_nb_questions;")){
       while($result = $resultSQL->fetch()){
         $this->_questions[]=Question::getSQLObject($result);
       }
