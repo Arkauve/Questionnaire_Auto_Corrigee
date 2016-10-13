@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>Examen</title>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <?php
@@ -36,9 +37,9 @@ include "../include.php";
   function afficheThemes(){
     $themesList = Theme::getAllThemes();
     foreach ($themesList as $key => $value) {
-      echo "<div class=theme id=$value->_id>$value->_nom";
+      echo "<fieldset class=block_theme id=$value->_id><legend clas=theme_nom>$value->_nom</legend>";
       afficheQuestion($value->_id);
-      echo "</div>";
+      echo "</fieldset>";
     }
   }
 
@@ -46,10 +47,10 @@ include "../include.php";
     $questionsList = Theme::getTheme($t_id)->getQuestionsRandom();
     foreach ($questionsList as $key => $value) {
       if(!Score::scoreExiste($value->_id,$_SESSION["e_id"])){
-        echo "<div class=question id=question_$value->_id><label class=question_phrase id=phrase_$value->_id>$value->_phrase</label><div id=content_question_$value->_id>";
+        echo "<fieldset class=block_question id=question_$value->_id><legend class=question_phrase id=phrase_$value->_id>$value->_phrase</legend><div id=content_question_$value->_id>";
         afficheChoix($value->_id);
         echo "<div id=consult_$value->_id style=display:none>false</div><button class=valider onclick=calculerScore($value->_id)>Valider</button><button id=button_$value->_id onclick=afficheIndice($value->_id)>Afficher l'indice</button>";
-        echo "</div></div>";
+        echo "</div></fieldset>";
       }else {
         $score=Score::getScoreByQuestion($value->_id,$_SESSION["e_id"]);
         echo "<div class=question id=$value->_id><label class=question_phrase id=phrase_$value->_id>$value->_phrase</label>  <label id=score_$value->_id class=score>$score->_valeur points</label></div>";

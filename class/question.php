@@ -81,8 +81,9 @@ class Question {
 
   function getChoixRandom(){
     global $bdd;
+    $limitChoix =$this->_nb_choix-1;
     if($this->_choix!=null)return $this->_choix;
-    if($resultSQL = $bdd->query("SELECT * FROM `choix` WHERE c_q_id = '$this->_id' ORDER BY RAND() LIMIT $this->_nb_choix;")){
+    if($resultSQL = $bdd->query("SELECT * FROM `choix` WHERE c_id=$this->_id_choix UNION ALL (SELECT * FROM `choix` WHERE c_id!=$this->_id_choix AND c_q_id = '$this->_id' LIMIT $limitChoix) ORDER BY RAND();")){
       while($result = $resultSQL->fetch()){
         $this->_choix[]=Choix::getSQLObject($result);
       }
