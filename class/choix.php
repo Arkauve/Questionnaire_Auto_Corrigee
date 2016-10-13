@@ -69,6 +69,15 @@ class Choix{
     }
   }
 
+  static function getChoixById($id){
+    global $bdd;
+    if ($resultSQL = $bdd->query("SELECT * FROM `choix` WHERE c_id=$id")){
+      $result = Choix::getSQLObject($resultSQL->fetch());
+      $resultSQL->closeCursor();
+      return $result;
+    }
+  }
+
 
 }
 

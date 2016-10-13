@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Tableau de bord</title>
 
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
   </head>
@@ -66,13 +67,13 @@ $(document).ready(function (){
         if($e_id!=null){
           if(($scoresList = Score::getScoreByEtudiant($e_id))!=null){
             foreach ($scoresList as $key => $value) {
-              echo "<label id=".$value->getId().">Score : ".$value->getId().", <label><br>";
+              echo "<label id=".$value->_reponseId.">Question : ".Question::getQuestion($value->_questionId)->_phrase.", Réponse : ".Choix::getChoixById($value->_reponseId)->_phrase.", Indice : ".$value->_consult.", Score : ".$value->_valeur." </label><br>";
             }
           }else echo "Cet etudiant n'a encore répondu à aucune question";
         }else {
           if(($scoresList = Score::getAllScore())!=null){
             foreach ($scoresList as $key => $value) {
-              echo "<label id=".$value->getId().">Score : ".$value->getId().", <label><br>";
+              echo "<label id=".$value->_reponseId.">Question : ".Question::getQuestion($value->_questionId)->_phrase.", Réponse : ".Choix::getChoixById($value->_reponseId)->_phrase.", Indice : ".$value->_consult.", Score : ".$value->_valeur." </label><br>";
             }
           }else echo "Aucun n'étudiant n'a répondu à l'examen";
         }
