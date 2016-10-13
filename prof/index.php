@@ -28,6 +28,8 @@
 
 </div>
 
+<div >
+
 <!-- QUESTIONS -->
 <div id="partie_questions">
     <h2>Questions</h2>
@@ -60,7 +62,8 @@
 </ul>
 
 </div>
-
+<div style="clear:both; font-size:1px;"></div>
+</div>
 
 </body>
 

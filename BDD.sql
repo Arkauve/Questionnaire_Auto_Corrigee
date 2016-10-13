@@ -69,7 +69,7 @@ CREATE TABLE score(
 )ENGINE=InnoDB;
 
 ALTER TABLE question ADD CONSTRAINT FK_question_t_id FOREIGN KEY (q_t_id) REFERENCES theme(t_id);
-ALTER TABLE question ADD CONSTRAINT FK_question_c_id FOREIGN KEY (q_c_id) REFERENCES theme(c_id);
+ALTER TABLE question ADD CONSTRAINT FK_question_c_id FOREIGN KEY (q_c_id) REFERENCES choix(c_id);
 ALTER TABLE choix ADD CONSTRAINT FK_choix_q_id FOREIGN KEY (c_q_id) REFERENCES question(q_id);
 ALTER TABLE score ADD CONSTRAINT FK_score_q_id FOREIGN KEY (s_q_id) REFERENCES question(q_id);
 ALTER TABLE score ADD CONSTRAINT FK_score_e_id FOREIGN KEY (s_e_id) REFERENCES etudiant(e_id);

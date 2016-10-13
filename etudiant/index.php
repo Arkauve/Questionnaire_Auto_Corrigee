@@ -1,25 +1,14 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Examen</title>
+<meta charset="utf-8">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 
 <?php
 include "../include.php";
 
-
-  session_start();
-
-  if(!empty($_GET)){
-    if(!empty($_GET["terminer"])){
-      session_destroy();
-      header("Location: ../etudiant/connect.php");
-      exit();
-    }
-  }
-
+session_start();
   if(empty($_SESSION)){
     header("Location: ../etudiant/connect.php");
     exit();
@@ -46,13 +35,13 @@ include "../include.php";
     $questionsList = Theme::getTheme($t_id)->getQuestions();
     foreach ($questionsList as $key => $value) {
       if(!Score::scoreExiste($value->_id,$_SESSION["e_id"])){
-        echo "<div class=question id=question_$value->_id><label class=question_phrase id=phrase_$value->_id>$value->_phrase</label><div id=content_question_$value->_id>";
+        echo "<div class=question id=$value->_id>$value->_phrase<br>";
         afficheChoix($value->_id);
         echo "<div id=consult_$value->_id style=display:none>false</div><button class=valider onclick=calculerScore($value->_id)>Valider</button><button id=button_$value->_id onclick=afficheIndice($value->_id)>Afficher l'indice</button>";
-        echo "</div></div>";
+        echo "</div>";
       }else {
         $score=Score::getScoreByQuestion($value->_id,$_SESSION["e_id"]);
-        echo "<div class=question id=$value->_id><label class=question_phrase id=phrase_$value->_id>$value->_phrase</label>  <label id=score_$value->_id class=score>$score->_valeur points</label></div>";
+        echo "<div class=question id=$value->_id>$value->_phrase $score->_valeur points</div>";
       }
     }
   }
@@ -72,12 +61,6 @@ include "../include.php";
 <script type="text/javascript">
 var nom = <?php echo "'".$_SESSION["e_nom"]."'" ?>;
 var prenom = <?php echo "'".$_SESSION["e_prenom"]."'" ?>;
-
-$(document).ready(function (){
-  $("#b_terminer").click(function(){
-    location.href+="?terminer=true";
-  });
-});
 
 function getReponseId(q_id){
   var list = $("input[name=question_"+q_id+"]");
@@ -129,8 +112,8 @@ function calculerScore(q_id){
         url: "../operations/scoreOperations.php",
         data: "function=calculeScore&id="+q_id+"&reponseId="+reponseId+"&valeur="+scoreValeur+"&consult="+consult,
         success: function(data){
-          $("#content_question_"+q_id)[0].style.display="none";
-          $("#question_"+q_id)[0].innerHTML=$("#question_"+q_id)[0].innerHTML+" <label id=score_"+q_id+" class=score>"+data+" points</label>";
+          console.log(data);
+          $("label[name=score_"+q_id+"]")[0].innerHTML=data;
         }
     });
     // saveScore(q_id);
@@ -141,8 +124,6 @@ function calculerScore(q_id){
 </script>
 
 <body>
-
-  <button id="b_terminer">Terminer</button>
 
 </body>
 </html>

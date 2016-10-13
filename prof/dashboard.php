@@ -38,6 +38,7 @@ $(document).ready(function (){
     if((index=location.href.indexOf("?id"))<0)
       var url = window.location.href+"?id="+getIdSelected();
     else var url = window.location.href.substring(0,index)+"?id="+getIdSelected();
+    //var url = window.location.href.split('?')[0]+"?id="+getIdSelected();
     location.href=url;
   }
 });
