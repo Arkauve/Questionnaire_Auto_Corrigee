@@ -7,7 +7,8 @@
 </head>
 <body>
     <header>
-        <h1>Votre examen</h1>
+        <h1 style="width : 10em;
+        margin:auto">Votre examen</h1>
 
     </header>
 
@@ -15,8 +16,8 @@
 <h2>Thèmes</h2>
     <div  style="display:inline;">
         <form id="form-theme">
-            Intitulé : <input id="intitule_theme" type="text"/>
-            Nombre de questions à poser : <input id="nb_questions" type="number"/>
+            <input autocomplete="off" placeholder="Intitulé" id="intitule_theme" type="text"/>
+            <input placeholder="N. questions" id="nb_questions" type="number"/>
             <input type="submit" value="Ajouter"/>
         </form>
     </div>
@@ -28,16 +29,18 @@
 
 </div>
 
-<div >
+<div>
 
 <!-- QUESTIONS -->
 <div id="partie_questions">
     <h2>Questions</h2>
     <form id="form-question">
-        Intitulé : <input id="intitule_question" type="text" name="intitule"/>
-        Theme : <SELECT  id="select_theme" name="theme"></SELECT>
-        Indice : <input id="indice" type="text" name="indice"/>
-        Nombre choix dispo : <input id="nb_choix" type="number"/>
+        <input autocomplete="off" placeholder="Votre question" id="intitule_question" type="text" name="intitule"/>
+        <SELECT  id="select_theme" name="theme">
+            <option value="nonono" disabled selected>Choissisez un thème</option>
+        </SELECT>
+        <input autocomplete="off" placeholder="Indice" id="indice" type="text" name="indice"/>
+        <input placeholder="N. choix" id="nb_choix" type="number"/>
         <input type="submit" value="Ajouter"/>
     </form>
 
@@ -51,10 +54,13 @@
 <div id="partie_choix">
     <h2>Choix</h2>
     <form id="form-choix">
-        Intitulé : <input id="intitule_choix" type="text" name="intitule"/>
-        Question : <SELECT id="select_question" name="question"></SELECT>
-        Correct: <input id="correct" name="correct" type="checkbox"/>
+        <input autocomplete="off" placeholder="Un choix"id="intitule_choix" type="text" name="intitule"/>
+        <SELECT id="select_question" name="question">
+            <option value="nonono" disabled selected>Choissisez une question</option>
+        </SELECT>
         <input type="submit" value="Ajouter"/>
+        <label style="display:inline" for="correct">Correct <input style="vertical-align: middle;" id="correct" name="correct" type="checkbox"/></label>
+
     </form>
 
 <ul id="liste_choix">
@@ -64,7 +70,9 @@
 </div>
 <div style="clear:both; font-size:1px;"></div>
 </div>
-
+<div style="text-align : center;margin-top : 2em;">
+    <a href="dashboard.php"class="btn">C'est parti !</a>
+</divW
 </body>
 
 

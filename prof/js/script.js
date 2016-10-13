@@ -45,7 +45,7 @@
             indice = input_indice.val();
             nb_choix = input_nb_choix.val();
             id_theme = input_theme.find(":selected").attr("name");
-            if(intitule_question!='' && theme!='' && indice!='' && nb_choix!=''){
+            if(intitule_question!='' && theme!='' && indice!='' && nb_choix!='' && input_theme.find(":selected").val()!="nonono"){
 
                 var numero_question = $("#liste_questions").children().length;
                 //Mise a jour liste des selects
@@ -75,7 +75,7 @@
             question = input_question.find(":selected").text();
             correct = input_correct.is(':checked');
             id_question = input_question.find(":selected").attr("name");
-            if(intitule_choix!='' && question!=''){
+            if(intitule_choix!='' && question!='' && input_question.find(":selected").val()!="nonono"){
                 ajouterChoixToList(intitule_choix,question,correct);
                 input_intitule.val('');
                 input_correct.prop('checked', false);
@@ -152,6 +152,7 @@
          type: 'post',
          //callback
          success: function(output) {
+             erreur(output);
                   }
 });
     }
