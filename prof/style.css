@@ -1,3 +1,13 @@
 @import "http://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css";
 
 @import url(http://fonts.googleapis.com/css?family=Lato:300,100,400);
+
+#partie_questions{
+    float:left;
+    width: 45%
+}
+
+#partie_choix{
+    float:right;
+    width: 45%
+}

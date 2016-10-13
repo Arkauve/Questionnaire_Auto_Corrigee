@@ -6,7 +6,7 @@ global $bdd;
 
 //Connexion à la base de données avec PDO
 try{
-  $bdd = new PDO('mysql:host=localhost;dbname=examen;charset=utf8', 'root', '');
+  $bdd = new PDO('mysql:host=localhost;dbname=examen;charset=utf8', 'root', '10223102m');
 }catch (Exception $e)
 {
   die('Erreur : ' . $e->getMessage());
