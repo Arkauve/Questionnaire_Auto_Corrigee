@@ -6,13 +6,13 @@ if(isset($_POST['action']) && !empty($_POST['action'])) {
     switch($action) {
         case 'createTheme' :
             $leTheme = new Theme($_POST['nom_theme'],$_POST['nb_questions']);
-            $leTheme->save()
+            $leTheme->save();
             print_r($leTheme->getId());
         break;
 
         case 'createQuestion' :
             $laQuestion = new Question($_POST['nom_question'],$_POST['indice'],$_POST['nb_choix']);
-            $laQuestion->save($_POST['id_theme'])
+            $laQuestion->save($_POST['id_theme']);
             print_r($laQuestion->getId());
         break;
 

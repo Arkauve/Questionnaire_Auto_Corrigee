@@ -8,7 +8,7 @@
 <?php
 include "../include.php";
 
-  session_start();
+session_start();
   if(empty($_SESSION)){
     header("Location: ../etudiant/connect.php");
     exit();

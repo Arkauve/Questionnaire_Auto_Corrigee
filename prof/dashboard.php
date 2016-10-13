@@ -35,7 +35,7 @@ $(document).ready(function (){
   }
 
   function refrechPage(){
-    var url = window.location.href+"?id="+getIdSelected();
+    var url = window.location.href.split('?')[0]+"?id="+getIdSelected();
     location.href=url;
   }
 });
