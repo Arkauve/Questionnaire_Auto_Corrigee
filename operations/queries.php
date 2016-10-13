@@ -19,12 +19,13 @@ if(isset($_POST['action']) && !empty($_POST['action'])) {
         case 'createChoix' :
             $leChoix = new Choix($_POST['nom_choix']);
             $leChoix->save(intval($_POST['id_question']));
-            return $leChoix->getId();
+            print_r($leChoix->getId());
         break;
 
         case 'updateQuestion' :
             $laQuestion = Question::getQuestion($_POST['id_question']);
             $laQuestion->setSolution($_POST['id_choix']);
+            print_r($laQuestion->update());
         break;
 
 
