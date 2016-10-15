@@ -4,14 +4,14 @@
 
 
 #------------------------------------------------------------
-# Table: Theme
+# Table: theme
 #------------------------------------------------------------
 
-CREATE TABLE Theme(
-        Id_theme    int (11) Auto_increment  NOT NULL ,
-        theme       Varchar (50) ,
-        id_question Int ,
-        PRIMARY KEY (Id_theme )
+CREATE TABLE theme(
+        t_id    int (11) Auto_increment  NOT NULL ,
+        t_nom       Varchar (50) ,
+        t_nb_question Int ,
+        PRIMARY KEY (t_id )
 )ENGINE=InnoDB;
 
 
@@ -20,23 +20,25 @@ CREATE TABLE Theme(
 #------------------------------------------------------------
 
 CREATE TABLE question(
-        id_question int (11) Auto_increment  NOT NULL ,
-        indice      Varchar (250) ,
-        nb_choix    Int ,
-        id_score    Int ,
-        id_choix    Int ,
-        PRIMARY KEY (id_question )
+        q_id int (11) Auto_increment  NOT NULL ,
+        q_phrase      Varchar (250) NOT NULL,
+        q_indice      Varchar (250) ,
+        q_nb_choix    Int ,
+        q_t_id Int ,
+        q_c_id Int ,
+        PRIMARY KEY (q_id )
 )ENGINE=InnoDB;
 
 
 #------------------------------------------------------------
-# Table: Choix
+# Table: choix
 #------------------------------------------------------------
 
-CREATE TABLE Choix(
-        id_choix int (11) Auto_increment  NOT NULL ,
-        valeur   Varchar (250) ,
-        PRIMARY KEY (id_choix )
+CREATE TABLE choix(
+        c_id int (11) Auto_increment  NOT NULL ,
+        c_phrase   Varchar (250) NOT NULL,
+        c_q_id Int,
+        PRIMARY KEY (c_id )
 )ENGINE=InnoDB;
 
 
@@ -45,29 +47,34 @@ CREATE TABLE Choix(
 #------------------------------------------------------------
 
 CREATE TABLE etudiant(
-        id_etudiant int (11) Auto_increment  NOT NULL ,
-        nom         Varchar (250) ,
-        prenom      Varchar (250) ,
-        id_score    Int ,
-        PRIMARY KEY (id_etudiant )
+        e_id int (11) Auto_increment  NOT NULL ,
+        e_nom         Varchar (250) ,
+        e_prenom      Varchar (250) ,
+        PRIMARY KEY (e_id )
 )ENGINE=InnoDB;
 
 
 #------------------------------------------------------------
-# Table: Score
+# Table: score
 #------------------------------------------------------------
 
-CREATE TABLE Score(
-        id_score    int (11) Auto_increment  NOT NULL ,
-        reponse     Varchar (250) ,
-        consult     Bool ,
-        valeur      Int ,
-        id_question Int ,
-        PRIMARY KEY (id_score )
+CREATE TABLE score(
+        s_id    int (11) Auto_increment  NOT NULL ,
+        s_reponse     Int ,
+        s_consult     Varchar (250),
+        s_valeur      Int ,
+        s_q_id Int ,
+        s_e_id Int,
+        PRIMARY KEY (s_id )
 )ENGINE=InnoDB;
 
-ALTER TABLE Theme ADD CONSTRAINT FK_Theme_id_question FOREIGN KEY (id_question) REFERENCES question(id_question);
-ALTER TABLE question ADD CONSTRAINT FK_question_id_score FOREIGN KEY (id_score) REFERENCES Score(id_score);
-ALTER TABLE question ADD CONSTRAINT FK_question_id_choix FOREIGN KEY (id_choix) REFERENCES Choix(id_choix);
-ALTER TABLE etudiant ADD CONSTRAINT FK_etudiant_id_score FOREIGN KEY (id_score) REFERENCES Score(id_score);
-ALTER TABLE Score ADD CONSTRAINT FK_Score_id_question FOREIGN KEY (id_question) REFERENCES question(id_question);
+ALTER TABLE question ADD CONSTRAINT FK_question_t_id FOREIGN KEY (q_t_id) REFERENCES theme(t_id);
+ALTER TABLE question ADD CONSTRAINT FK_question_c_id FOREIGN KEY (q_c_id) REFERENCES choix(c_id);
+ALTER TABLE choix ADD CONSTRAINT FK_choix_q_id FOREIGN KEY (c_q_id) REFERENCES question(q_id);
+ALTER TABLE score ADD CONSTRAINT FK_score_q_id FOREIGN KEY (s_q_id) REFERENCES question(q_id);
+ALTER TABLE score ADD CONSTRAINT FK_score_e_id FOREIGN KEY (s_e_id) REFERENCES etudiant(e_id);
+
+
+INSERT INTO etudiant (e_nom,e_prenom) VALUES ('GARNIER','Romain');
+INSERT INTO etudiant (e_nom,e_prenom) VALUES ('ROGE','Damien');
+INSERT INTO etudiant (e_nom,e_prenom) VALUES ('TRIPPONI','Lucas');
