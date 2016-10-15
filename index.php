@@ -6,34 +6,21 @@ if(isset($_SESSION['nom']))
   exit();
 }
 
- ?>
+?>
 
  <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-
+  <meta charset="utf-8">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 
 <body>
-<h1>Trigaro : l'examen sourire :)</h1>
+<h1>Examen</h1>
 
-<form method="post" action="connexion/connect.php" enctype="multipart/form-data" >
+<label id="redirect">Vous êtes</label>
 
-<p>
-<label for="login">login :</label>
-<input type="text" id="login" name="login" />
-</p>
-<p>
-<label for="pass">Mot de passe :</label>
-<input type="password" id="pass" name="pass" />
-</p>
-<input type="submit" name="connect" value="Me connecter" />
+<a href="./etudiant/">etudiant</a>
+<a href="./prof/">enseignant</a>
 
-</form>
-
-
-<a style="margin: 2em,2em;" href="prof/"> Tkt bro je suis prof </a>
 </body>
