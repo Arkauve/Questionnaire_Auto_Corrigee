@@ -14,7 +14,7 @@ include "../class/theme.php";
 include "../connexion_bdd.php";
 
 if(!empty($_POST)){
-  $question = new Question($_POST["phrase"],$_POST["solution"],$_POST["indice"],$_POST["nbChoix"]);
+  $question = new Question($_POST["phrase"],$_POST["indice"],$_POST["nbChoix"]);
   print_r($_POST["phrase"]." ".$_POST["solution"]." ".$_POST["indice"]." ".$_POST["nbChoix"]);
   print_r($question->getId()." ".$question->getPhrase()." ".$question->getSolution()." ".$question->getIndice()." ".$question->getNbChoix());
   $question->save($_POST["theme"]);

@@ -9,14 +9,13 @@
   </head>
 
 <?php
-include "../class/question.php";
-include "../class/choix.php";
-include "../connexion_bdd.php";
+  include "../include.php";
 
-if(!empty($_POST)){
-  $choix = new Choix($_POST["valeur"],$_POST["choix"]);
-  $choix->save($_POST["question"]);
-}
+  if(!empty($_POST)){
+    $choix = new Choix($_POST["choix"]);
+    $choix->save($_POST["question"]);
+    $choix->addToQuestion($_POST['question']);
+  }
 
 ?>
 
@@ -35,7 +34,6 @@ if(!empty($_POST)){
 
       <form id="formChoix" class="" action="#" method="post">
         <label for="">Choix</label>        <input type="text" name="choix" value=""><br>
-        <label for="">Valeur</label>        <input type="text" name="valeur" value=""><br>
         <input type="submit" name="name" value="valider">
       </form>
 
@@ -48,7 +46,7 @@ if(!empty($_POST)){
       if(($choixList = Choix::getAllChoix())!=null){
         foreach ($choixList as $key => $value) {
           //print_r($value);
-          echo "<label id=".$value->getId().">Choix : ".$value->getPhrase().", valeur : ".$value->getValeur()."<label><br>";
+          echo "<label id=".$value->getId().">Choix : ".$value->getPhrase()."<label><br>";
         }
       }else echo "Il n'existe aucun choix";
     ?>

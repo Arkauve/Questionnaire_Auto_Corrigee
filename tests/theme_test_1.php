@@ -9,21 +9,20 @@
   </head>
 
 <?php
-include "../class/theme.php";
-include "../connexion_bdd.php";
-/*
-if(!empty($_GET)){
-  if($_GET['function']=="deleteTheme"){
-    echo "fonction ".$_GET['function']." id :".$_GET["id"]." <br>";
-    $theme = Theme::deleteTheme($_GET["id"]);
+include "../include.php";
+  /*
+  if(!empty($_GET)){
+    if($_GET['function']=="deleteTheme"){
+      echo "fonction ".$_GET['function']." id :".$_GET["id"]." <br>";
+      $theme = Theme::deleteTheme($_GET["id"]);
+    }
   }
-}
 
-if(!empty($_POST)){
-  $theme = new Theme($_POST["phrase"]);
-  $theme->save();
-}
-*/
+  if(!empty($_POST)){
+    $theme = new Theme($_POST["phrase"]);
+    $theme->save();
+  }
+  */
 ?>
 
   <body>

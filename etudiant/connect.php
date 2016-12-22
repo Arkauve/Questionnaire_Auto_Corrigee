@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Connexion</title>
 
+    <link rel="stylesheet" type="text/css" href="../styles/style.css">
     <?php
     include "../include.php";
     if(!empty($_POST))
@@ -25,9 +26,11 @@
      ?>
   </head>
   <body>
-    <form class="" action="" method="post">
-      <label for="nom">Nom : </label><input type="text" name="nom" value=""><br>
-      <label for="prenom">Prénom : </label><input type="text" name="prenom" value=""><br>
+    <h1 class="accueil-title">Etudiant</h1>
+
+    <form class="block-accueil" action="" method="post">
+      <div><label for="nom">Nom : </label><input type="text" name="nom" value=""></div>
+      <div><label for="prenom">Prénom : </label><input type="text" name="prenom" value=""></div>
       <input type="submit" name="name" value="valider">
     </form>
 

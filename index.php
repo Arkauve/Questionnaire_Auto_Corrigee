@@ -13,14 +13,17 @@ if(isset($_SESSION['nom']))
 <head>
   <meta charset="utf-8">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
 
 <body>
-<h1>Examen</h1>
+<h1 class="accueil-title">Examen</h1>
 
-<label id="redirect">Vous êtes</label>
+<div class="block-accueil">
+  <div class="block-title"><b>Vous êtes</b></div>
+  <a href="./etudiant/">etudiant</a>
+  <a href="./prof/">enseignant</a>
+</div>
 
-<a href="./etudiant/">etudiant</a>
-<a href="./prof/">enseignant</a>
 
 </body>

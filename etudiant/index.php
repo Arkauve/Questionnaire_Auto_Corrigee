@@ -50,22 +50,19 @@ include "../include.php";
         echo "<fieldset class=block_question id=question_$value->_id><legend class=question_phrase id=phrase_$value->_id>$value->_phrase</legend><div id=content_question_$value->_id>";
         afficheChoix($value->_id);
         echo "<div id=consult_$value->_id style=display:none>false</div><button class=valider onclick=calculerScore($value->_id)>Valider</button><button id=button_$value->_id onclick=afficheIndice($value->_id)>Afficher l'indice</button>";
-        echo "</div></fieldset>";
+        echo "<div class=score><label name=score_$value->_id>$value->_nb_points</label>/$value->_nb_points points</div></div></fieldset>";
       }else {
         $score=Score::getScoreByQuestion($value->_id,$_SESSION["e_id"]);
-        echo "<div class=question id=$value->_id><label class=question_phrase id=phrase_$value->_id>$value->_phrase</label>  <label id=score_$value->_id class=score>$score->_valeur points</label></div>";
+        echo "<div class=question id=$value->_id><label class=question_phrase id=phrase_$value->_id>$value->_phrase</label>  <label id=score_$value->_id class=score>$score->_valeur/$value->_nb_points points</label></div>";
       }
     }
   }
 
   function afficheChoix($q_id){
     $choixList = Question::getQuestion($q_id)->getChoixRandom();
-    $i=0;
     foreach ($choixList as $key => $value) {
-      $i++;
       echo "<div class=choix><input id=$value->_id type=radio class=choix name=question_$q_id>$value->_phrase</div>";
     }
-    echo "<div class=score><label name=score_$q_id>$i</label>/$i points</div>";
   }
 
 ?>
@@ -93,7 +90,7 @@ function saveScore(q_id){
   var consult = $("#consult_"+q_id)[0].innerHTML;
   console.log("score:"+scoreValeur+" reponse: "+reponseId+" consult:"+consult);
   $.ajax({
-      type: "GET",
+      type: "POST",
       url: "../operations/scoreOperations.php",
       data: "function=saveScore&id="+q_id+"&valeur="+scoreValeur+"&reponseId="+reponseId+"&consult="+consult,
       success: function(data){
@@ -103,20 +100,28 @@ function saveScore(q_id){
 }
 
 function afficheIndice(q_id){
-  var scoreValeur = parseInt($("label[name=score_"+q_id+"]")[0].innerHTML);
-  scoreValeur--;
-  $("label[name=score_"+q_id+"]")[0].innerHTML=scoreValeur;
-  $("#consult_"+q_id)[0].innerHTML=true;
   $.ajax({
-      type: "GET",
+      type: "POST",
       url: "../operations/questionOperations.php",
       data: "function=getIndice&id="+q_id,
       success: function(data){
         alert("Indice : "+data);
       }
   });
-  $("#button_"+q_id)[0].style.display="none";
+  updatescore(q_id);
 }
+
+function updatescore(q_id){
+  $.ajax({
+      type: "POST",
+      url: "../operations/questionOperations.php",
+      data: "function=getScoreMax&id="+q_id,
+      success: function(data){
+        $("label[name=score_"+q_id+"]")[0].innerHTML=data;
+      }
+  });
+}
+
 
 function calculerScore(q_id){
   var reponseId = getReponseId(q_id);
